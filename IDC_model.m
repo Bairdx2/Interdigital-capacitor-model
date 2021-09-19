@@ -68,8 +68,6 @@ classdef IDC_model < handle
         
         function IDC = plot1(IDC)
             
-            %Multiple calls to helper functions that calculate
-            %basic values that presumably do not change much
             param_calc(IDC);
             Jacobi2(IDC);
             Jacobi3(IDC);
@@ -243,14 +241,11 @@ function IDC = Cap_vs_metallization(IDC)
             R4 = ellipticK(IDC.k_E)/ellipticK(IDC.k_Ep);
             IDC.C_int = IDC.eo*IDC.L*(R1 + (IDC.er_HfO2-1)*R3 +IDC.er_Al2O3*R1);
             IDC.C_ext = IDC.eo*IDC.L*(R2 + (IDC.er_HfO2-1)*R4 +IDC.er_Al2O3*R2);
-            %C_int = eo*L*(R1 + es*R1);
-            %C_ext = eo*L*(R2 + es*R2);
             IDC.C_IDC(a) = (N_curr - 3)*(IDC.C_int/2) + 2*((IDC.C_int * IDC.C_ext)/(IDC.C_int + IDC.C_ext));
         
         end
     plot(n, IDC.C_IDC*(1E12),'color',rand(1,3),'DisplayName',strcat(num2str(N_curr),' fingers'))
 end
-%plot(n, C_IDC*(1E12));
 legend('show')    
 
 end
